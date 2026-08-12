@@ -39,7 +39,10 @@ case "$PKG_MANAGER" in
             zsh \
             tmux \
             unzip \
-            fontconfig
+            fontconfig \
+            build-essential \
+            procps \
+            file
         ;;
 
     dnf)
@@ -50,7 +53,10 @@ case "$PKG_MANAGER" in
             zsh \
             tmux \
             unzip \
-            fontconfig
+            fontconfig \
+            @development-tools \
+            procps-ng \
+            file
         ;;
 
     pacman)
@@ -61,7 +67,10 @@ case "$PKG_MANAGER" in
             zsh \
             tmux \
             unzip \
-            fontconfig
+            fontconfig \
+            base-devel \
+            procps-ng \
+            file
         ;;
 esac
 
@@ -139,6 +148,37 @@ if [ ! -f "$MESLO_MARKER" ]; then
 else
     echo "MesloLGS Nerd Font already installed for Linux."
 fi
+
+# ---------------------------------------
+# Homebrew
+# ---------------------------------------
+
+BREW_BIN="/home/linuxbrew/.linuxbrew/bin/brew"
+
+if ! command -v brew >/dev/null 2>&1 && [ ! -x "$BREW_BIN" ]; then
+    echo "Installing Homebrew..."
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    echo "Homebrew already installed."
+fi
+
+if [ -x "$BREW_BIN" ]; then
+    eval "$("$BREW_BIN" shellenv)"
+fi
+
+# ---------------------------------------
+# uv (Astral)
+# ---------------------------------------
+
+if ! command -v uv >/dev/null 2>&1; then
+    echo "Installing uv..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+else
+    echo "uv already installed."
+fi
+
+# Ensure ~/.local/bin is available in this session (uv default install location)
+export PATH="$HOME/.local/bin:$PATH"
 
 # ---------------------------------------
 # Dotfiles

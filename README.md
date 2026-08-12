@@ -9,6 +9,8 @@ Bootstrap script for a terminal setup I actually like: **Oh My Zsh**, **Powerlev
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - Plugins: `zsh-autosuggestions`, `zsh-syntax-highlighting`
 - MesloLGS Nerd Font under `~/.local/share/fonts` (Linux side)
+- [Homebrew](https://brew.sh/)
+- [uv](https://docs.astral.sh/uv/)
 - Symlinks for `.zshrc` and `.tmux.conf`
 
 Supports **apt**, **dnf**, and **pacman**. Safe to re-run.
